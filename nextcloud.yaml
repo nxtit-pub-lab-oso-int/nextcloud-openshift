@@ -22,6 +22,9 @@ parameters:
 - name: NGINX_DOCKERFILE_REPO
   description: Nginx Dockerfile source repository
   value: https://github.com/nxtit-pub-lab-oso-int/nextcloud-openshift.git
+- name: STORAGE_CLASS
+  description: Storage class to use when claiming volume. It must support ReadWriteMany access mode.
+  value: gp2
 - name: PVC_SIZE
   description: PVC size for Apps, Config and Data
   value: 5Gi
@@ -36,6 +39,7 @@ objects:
     resources:
       requests:
         storage: ${PVC_SIZE}
+    storageClassName: ${STORAGE_CLASS}
 - apiVersion: v1
   kind: ImageStream
   metadata:
