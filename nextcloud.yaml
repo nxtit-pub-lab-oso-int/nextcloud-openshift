@@ -265,11 +265,16 @@ objects:
 - apiVersion: v1
   kind: Route
   metadata:
+    annotations:
+      kubernetes.io/tls-acme: "true"
     name: nextcloud
   spec:
     host: ${NEXTCLOUD_HOST}
     port:
       targetPort: 8080-tcp
+    tls:
+      insecureEdgeTerminationPolicy: Redirect
+      termination: edge
     to:
       kind: Service
       name: nextcloud
